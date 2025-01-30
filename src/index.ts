@@ -30,7 +30,7 @@ const formatBytesToKB = (num: number) => `${(num / 1024).toFixed(2)}KB`;
 // @ts-ignore
 const dedupedData = dataDeduped.flat();
 const stringifiedDedupedData = JSON.stringify(dedupedData);
-const dedupDataInfo = {
+const dedupedDataInfo = {
 	numItems: dedupedData.length,
 	stringifiedLength: formatBytesToKB(stringifiedDedupedData.length),
 	avgSizeOfItem: formatBytesToKB(stringifiedDedupedData.length / dedupedData.length),
@@ -51,7 +51,7 @@ const dedupedDataOmitted = dedupedData.map((item: any) => {
 	return deepOmit(item, KEYS_TO_OMIT);
 });
 const stringifiedDedupedDataOmitted = JSON.stringify(dedupedDataOmitted);
-const dedupDataOmittedInfo = {
+const dedupedDataOmittedInfo = {
 	numItems: dedupedDataOmitted.length,
 	stringifiedLength: formatBytesToKB(stringifiedDedupedDataOmitted.length),
 	avgSizeOfItem: formatBytesToKB(stringifiedDedupedDataOmitted.length / dedupedDataOmitted.length),
@@ -71,10 +71,9 @@ const dupDataOmittedInfo = {
 
 console.log(`Duped data:${JSON.stringify(dupDataInfo, null, 2)}`);
 console.log(`Duped data with keys omitted:${JSON.stringify(dupDataOmittedInfo, null, 2)}`);
-console.log(`Deduped data:${JSON.stringify(dedupDataInfo, null, 2)}`);
-console.log(`Deduped data with keys omitted:${JSON.stringify(dedupDataOmittedInfo, null, 2)}`);
+console.log(`Deduped data:${JSON.stringify(dedupedDataInfo, null, 2)}`);
+console.log(`Deduped data with keys omitted:${JSON.stringify(dedupedDataOmittedInfo, null, 2)}`);
 
-// save all 4 as JSON files minified to out folder
 fs.writeFileSync("./output/deduped-data.json", JSON.stringify(dedupedData));
 fs.writeFileSync("./output/duped-data.json", JSON.stringify(dupedData));
 fs.writeFileSync("./output/deduped-data-omitted.json", JSON.stringify(dedupedDataOmitted));
